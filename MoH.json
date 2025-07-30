@@ -1,0 +1,46 @@
+{
+  "title": "Máxima oscilación horaria",
+  "type": "timeseries",
+  "settings": {},
+  "sizeX": 6,
+  "sizeY": 4,
+  "useDashboardTimewindow": true,
+  "datasources": [
+    {
+      "type": "entity",
+      "name": "Sensor",
+      "aliasName": "Sensor",
+      "entityAliasId": "ALIAS_ID_CAMBIAR",
+      "dataKeys": [
+        {
+          "name": "Temperature",
+          "type": "timeseries",
+          "label": "Temperature",
+          "color": "#FF0000"
+        },
+        {
+          "name": "Relative humidity",
+          "type": "timeseries",
+          "label": "Relative humidity",
+          "color": "#0000FF"
+        }
+      ]
+    }
+  ],
+  "widgetStyle": {},
+  "titleStyle": {
+    "fontSize": "18px"
+  },
+  "custom": {},
+  "isSystemType": false,
+  "bundleAlias": "custom_widgets",
+  "typeAlias": "custom",
+  "component": "custom-widget",
+  "config": {
+    "html": "<div style=\"text-align:center; font-size:16px;\">\n  <h3>Máxima oscilación horaria</h3>\n  <div *ngIf=\"custom.result\">\n    <p><strong>📌 Temperature:</strong></p>\n    <p>Hora: {{custom.result.temperature.hour}}:00</p>\n    <p>Oscilación: {{custom.result.temperature.oscillation | number:'1.2-2'}}</p>\n    <hr />\n    <p><strong>💧 Relative Humidity:</strong></p>\n    <p>Hora: {{custom.result.humidity.hour}}:00</p>\n    <p>Oscilación: {{custom.result.humidity.oscillation | number:'1.2-2'}}</p>\n  </div>\n</div>",
+    "css": ":host { display: block; padding: 16px; background-color: #fefefe; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }",
+    "settingsSchema": {},
+    "actionSources": {},
+    "javascript": "self.onDataUpdated = function() {\n  const data = self.ctx.data;\n  const result = {\n    temperature: { hour: null, oscillation: 0 },\n    humidity: { hour: null, oscillation: 0 }\n  };\n\n  data.forEach(ds => {\n    const key = ds.dataKey.name;\n    const isTemp = key === 'Temperature';\n    const isHum = key === 'Relative humidity';\n\n    const hourly = {};\n\n    ds.data.forEach(([ts, value]) => {\n      const d = new Date(ts);\n      const hour = d.getUTCHours();\n      if (!hourly[hour]) hourly[hour] = [];\n      hourly[hour].push(value);\n    });\n\n    let maxOsc = 0;\n    let maxHour = null;\n\n    for (const hour in hourly) {\n      const values = hourly[hour];\n      const min = Math.min(...values);\n      const max = Math.max(...values);\n      const osc = max - min;\n      if (osc > maxOsc) {\n        maxOsc = osc;\n        maxHour = hour;\n      }\n    }\n\n    if (isTemp) {\n      result.temperature.hour = maxHour;\n      result.temperature.oscillation = maxOsc;\n    } else if (isHum) {\n      result.humidity.hour = maxHour;\n      result.humidity.oscillation = maxOsc;\n    }\n  });\n\n  self.custom.result = result;\n  self.ctx.detectChanges();\n};"
+  }
+}
