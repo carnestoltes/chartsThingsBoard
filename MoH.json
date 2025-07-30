@@ -37,7 +37,7 @@
   "typeAlias": "custom",
   "component": "custom-widget",
   "config": {
-    "html": "<div style=\"text-align:center; font-size:16px;\">\n  <h3>Máxima oscilación horaria</h3>\n  <div *ngIf=\"custom.result\">\n    <p><strong>📌 Temperature:</strong></p>\n    <p>Hora: {{custom.result.temperature.hour}}:00</p>\n    <p>Oscilación: {{custom.result.temperature.oscillation | number:'1.2-2'}}</p>\n    <hr />\n    <p><strong>💧 Relative Humidity:</strong></p>\n    <p>Hora: {{custom.result.humidity.hour}}:00</p>\n    <p>Oscilación: {{custom.result.humidity.oscillation | number:'1.2-2'}}</p>\n  </div>\n</div>",
+    "html": "<div style=\"text-align:center; font-size:16px;\">\n  <h3>Máxima oscilación horaria</h3>\n  <div *ngIf=\"custom.result\">\n    <p><strong>Temperature:</strong></p>\n    <p>Hora: {{custom.result.temperature.hour}}:00</p>\n    <p>Oscilación: {{custom.result.temperature.oscillation | number:'1.2-2'}}</p>\n    <hr />\n    <p><strong>💧 Relative Humidity:</strong></p>\n    <p>Hora: {{custom.result.humidity.hour}}:00</p>\n    <p>Oscilación: {{custom.result.humidity.oscillation | number:'1.2-2'}}</p>\n  </div>\n</div>",
     "css": ":host { display: block; padding: 16px; background-color: #fefefe; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }",
     "settingsSchema": {},
     "actionSources": {},
