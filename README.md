@@ -4,6 +4,7 @@ This repository contains, in one hand a **Python script** for upload telemetry d
 
 In the other hand contains a **rule chain model** for make **aggregations** with an example of calculation of Hourly Maximum Oscillation (MoH).
 
+# Instance of ThingsBoard CE
 
 ### Features
 
@@ -33,8 +34,6 @@ In the other hand contains a **rule chain model** for make **aggregations** with
     pip install pandas requests argparse
     ```
 
----
-
 ### Usage
 
 To run the script, use the terminal and provide the necessary arguments.
@@ -60,6 +59,10 @@ To visualize MoH data, you need a custom bar chart widget in ThingsBoard.
 
 1.  Create a new **"Time-Series Bar Chart"** widget.
 2.  On the **Data Keys** tab, configure your telemetry key (for example, 'Temperature') or you can choose the calculated MoH for display.
+   
+# Instance of ThingsBoard PE
+
+In this section, we can appreciate how you can make an aggregations for exploit your raw data using only a rule chain.
 
 ### Display of rule chain 
 
