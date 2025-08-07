@@ -60,5 +60,3 @@ To visualize MoH data, you need a custom bar chart widget in ThingsBoard.
 2.  On the **Data Keys** tab, configure your telemetry key (for example, 'Temperature') or you can choose the calculated MoH for display.
 
 
-
-This project is licensed under the [choose one, e.g., MIT](LICENSE).
