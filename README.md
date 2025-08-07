@@ -22,8 +22,8 @@ This repository contains, in one hand a Python script for upload telemetry data 
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/](https://github.com/)<carnestoltes>/<chartsThingsBoard>.git
-    cd <chartsThingsBoard>
+    git clone https://github.com/carnestoltes/chartsThingsBoard.git
+    cd chartsThingsBoard/
     ```
 
 2.  **Install dependencies:**
