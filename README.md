@@ -59,7 +59,9 @@ To visualize MoH data, you need a custom bar chart widget in ThingsBoard.
 
 1.  Create a new **"Time-Series Bar Chart"** widget.
 2.  On the **Data Keys** tab, configure your telemetry key (for example, 'Temperature') or you can choose the calculated MoH for display.
-   
+
+![A review of charts options](./images/charts.png)
+![Final result](./images/CE_MoH.png)
 # Instance of ThingsBoard PE
 
 In this section, we can appreciate how you can make an aggregations for exploit your raw data using only a rule chain.
@@ -67,5 +69,6 @@ In this section, we can appreciate how you can make an aggregations for exploit 
 ### Display of rule chain 
 
 ![A visualization of json file](./images/Rule.png)
+![Final result](./images/M&M.png)
 
 
