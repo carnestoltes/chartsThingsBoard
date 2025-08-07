@@ -1,6 +1,8 @@
 # Tool for upload and operate with telemetry in ThingsBoard
 
-This repository contains, in one hand a Python script for upload telemetry data from CSV file to platform including the calculation of Hourly Maximum Oscillation (MoH) for visualization and in the other hand, a rule chain model for make aggregations with an example of calculation of Hourly Maximum Oscillation (MoH).
+This repository contains, in one hand a **Python script** for upload telemetry data from **CSV file** to platform including the calculation of **Hourly Maximum Oscillation (MoH)** for visualization.
+
+In the other hand contains a **rule chain model** for make **aggregations** with an example of calculation of Hourly Maximum Oscillation (MoH).
 
 
 ### Features
@@ -58,5 +60,9 @@ To visualize MoH data, you need a custom bar chart widget in ThingsBoard.
 
 1.  Create a new **"Time-Series Bar Chart"** widget.
 2.  On the **Data Keys** tab, configure your telemetry key (for example, 'Temperature') or you can choose the calculated MoH for display.
+
+### Display of rule chain 
+
+![A visualization of json file](./images/Rule.png)
 
 
