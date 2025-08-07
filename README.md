@@ -62,7 +62,7 @@ To visualize MoH data, you need a custom bar chart widget in ThingsBoard.
 
 ![A review of charts options](./images/Charts.png)
 
-_Diferent chart options for display it._
+_Diferents charts options for display it._
 
 ![Final result](./images/CE_MoH.png)
 
