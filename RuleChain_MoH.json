@@ -1,0 +1,478 @@
+{
+  "ruleChain": {
+    "name": "MoH",
+    "type": "CORE",
+    "firstRuleNodeId": null,
+    "root": false,
+    "debugMode": false,
+    "configuration": null,
+    "additionalInfo": {
+      "description": ""
+    }
+  },
+  "metadata": {
+    "version": 7,
+    "firstNodeIndex": 9,
+    "nodes": [
+      {
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgTimeseriesNode",
+        "name": "Save Timeseries",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 1,
+        "configuration": {
+          "defaultTTL": 0,
+          "useServerTs": false,
+          "processingSettings": {
+            "type": "ON_EVERY_MESSAGE"
+          }
+        },
+        "additionalInfo": {
+          "layoutX": 1055,
+          "layoutY": 437
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.telemetry.TbMsgAttributesNode",
+        "name": "Save Attributes",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 3,
+        "configuration": {
+          "processingSettings": {
+            "type": "ON_EVERY_MESSAGE"
+          },
+          "scope": "CLIENT_SCOPE",
+          "notifyDevice": false,
+          "sendAttributesUpdatedNotification": false,
+          "updateAttributesOnlyOnValueChange": true
+        },
+        "additionalInfo": {
+          "layoutX": 892,
+          "layoutY": 110
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.filter.TbMsgTypeSwitchNode",
+        "name": "Message Type Switch",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 0,
+        "configuration": {
+          "version": 0
+        },
+        "additionalInfo": {
+          "layoutX": 566,
+          "layoutY": 302
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.action.TbLogNode",
+        "name": "Log RPC from Device",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 0,
+        "configuration": {
+          "scriptLang": "TBEL",
+          "jsScript": "return '\\nIncoming message:\\n' + JSON.stringify(msg) + '\\nIncoming metadata:\\n' + JSON.stringify(metadata);",
+          "tbelScript": "return '\\nIncoming message:\\n' + JSON.stringify(msg) + '\\nIncoming metadata:\\n' + JSON.stringify(metadata);"
+        },
+        "additionalInfo": {
+          "layoutX": 811,
+          "layoutY": 487
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.action.TbLogNode",
+        "name": "Log Other",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 0,
+        "configuration": {
+          "scriptLang": "TBEL",
+          "jsScript": "return '\\nIncoming message:\\n' + JSON.stringify(msg) + '\\nIncoming metadata:\\n' + JSON.stringify(metadata);",
+          "tbelScript": "return '\\nIncoming message:\\n' + JSON.stringify(msg) + '\\nIncoming metadata:\\n' + JSON.stringify(metadata);"
+        },
+        "additionalInfo": {
+          "layoutX": 748,
+          "layoutY": 546
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.rpc.TbSendRPCRequestNode",
+        "name": "RPC Call Request",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 0,
+        "configuration": {
+          "timeoutInSeconds": 60
+        },
+        "additionalInfo": {
+          "layoutX": 737,
+          "layoutY": 605
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.filter.TbOriginatorTypeFilterNode",
+        "name": "Is Entity Group",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 0,
+        "configuration": {
+          "originatorTypes": [
+            "ENTITY_GROUP"
+          ]
+        },
+        "additionalInfo": {
+          "layoutX": 255,
+          "layoutY": 301
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.filter.TbMsgTypeFilterNode",
+        "name": "Post attributes or RPC request",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 0,
+        "configuration": {
+          "messageTypes": [
+            "POST_ATTRIBUTES_REQUEST",
+            "RPC_CALL_FROM_SERVER_TO_DEVICE"
+          ]
+        },
+        "additionalInfo": {
+          "layoutX": 319,
+          "layoutY": 109
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.transform.TbDuplicateMsgToGroupNode",
+        "name": "Duplicate To Group Entities",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 1,
+        "configuration": {
+          "entityGroupId": null,
+          "entityGroupIsMessageOriginator": true
+        },
+        "additionalInfo": {
+          "layoutX": 627,
+          "layoutY": 108
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.profile.TbDeviceProfileNode",
+        "name": "Device Profile Node",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 1,
+        "configuration": {
+          "persistAlarmRulesState": false,
+          "fetchAlarmRulesStateOnStart": false
+        },
+        "additionalInfo": {
+          "description": "Process incoming messages from devices with the alarm rules defined in the device profile. Dispatch all incoming messages with \"Success\" relation type.",
+          "layoutX": 137,
+          "layoutY": 415
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.flow.TbRuleChainInputNode",
+        "name": "Generate Report",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 1,
+        "configuration": {
+          "ruleChainId": "416efca0-7361-11f0-80c2-41d936a90ce0",
+          "forwardMsgToDefaultRuleChain": false
+        },
+        "additionalInfo": {
+          "description": "Forwards message to the \"Generate Report\" rule chain",
+          "layoutX": 722,
+          "layoutY": 671
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.transform.TbTransformMsgNode",
+        "name": "MoH",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 0,
+        "configuration": {
+          "scriptLang": "JS",
+          "jsScript": "// Define the keys for temperature telemetry\nvar maxTemp = msg.Temperature_Max;\nvar minTemp = msg.Temperature_Min;\n\n// Define the keys for humidity telemetry\nvar maxHum = msg.Humidity_Max;\nvar minHum = msg.Humidity_Min;\n\n// Calcula la MoH para la temperatura si los valores existen\nif (maxTemp !== undefined && minTemp !== undefined) {\n    var mohTemp = maxTemp - minTemp;\n    msg.MoH_Temperature = mohTemp;\n}\n\n// Calcula la MoH para la humedad si los valores existen\nif (maxHum !== undefined && minHum !== undefined) {\n    var mohHum = maxHum - minHum;\n    msg.MoH_Humidity = mohHum;\n}\n\nreturn msg;",
+          "tbelScript": "return {msg: msg, metadata: metadata, msgType: msgType};"
+        },
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 1170,
+          "layoutY": 240
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.analytics.incoming.TbSimpleAggMsgNode",
+        "name": "TempMax",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 2,
+        "configuration": {
+          "inputValueKey": "Temperature",
+          "outputValueKey": "Temperature_Max",
+          "mathFunction": "MAX",
+          "aggIntervalType": "HOUR",
+          "timeZoneId": "Europe/Madrid",
+          "aggIntervalValue": 1,
+          "aggIntervalTimeUnit": "HOURS",
+          "intervalPersistencePolicy": "ON_EACH_CHECK_AFTER_INTERVAL_END",
+          "outMsgType": "POST_TELEMETRY_REQUEST",
+          "intervalCheckValue": 1,
+          "intervalCheckTimeUnit": "MINUTES",
+          "statePersistencePolicy": "ON_EACH_CHANGE",
+          "statePersistenceValue": 1,
+          "statePersistenceTimeUnit": "MINUTES",
+          "autoCreateIntervals": false,
+          "periodValue": 5,
+          "periodTimeUnit": "MINUTES",
+          "parentEntitiesQuery": {
+            "type": "group",
+            "entityGroupId": null
+          }
+        },
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 887,
+          "layoutY": 174
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.analytics.incoming.TbSimpleAggMsgNode",
+        "name": "TempMin",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 2,
+        "configuration": {
+          "inputValueKey": "Temperature",
+          "outputValueKey": "Temperature_Min",
+          "mathFunction": "MIN",
+          "aggIntervalType": "HOUR",
+          "timeZoneId": "Europe/Madrid",
+          "aggIntervalValue": 1,
+          "aggIntervalTimeUnit": "HOURS",
+          "intervalPersistencePolicy": "ON_EACH_CHECK_AFTER_INTERVAL_END",
+          "outMsgType": "POST_TELEMETRY_REQUEST",
+          "intervalCheckValue": 1,
+          "intervalCheckTimeUnit": "MINUTES",
+          "statePersistencePolicy": "ON_EACH_CHANGE",
+          "statePersistenceValue": 1,
+          "statePersistenceTimeUnit": "MINUTES",
+          "autoCreateIntervals": false,
+          "periodValue": 5,
+          "periodTimeUnit": "MINUTES",
+          "parentEntitiesQuery": {
+            "type": "group",
+            "entityGroupId": null
+          }
+        },
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 887,
+          "layoutY": 232
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.analytics.incoming.TbSimpleAggMsgNode",
+        "name": "HumMax",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 2,
+        "configuration": {
+          "inputValueKey": "Relative humidity",
+          "outputValueKey": "Humidity_Max",
+          "mathFunction": "MAX",
+          "aggIntervalType": "HOUR",
+          "timeZoneId": "Europe/Madrid",
+          "aggIntervalValue": 1,
+          "aggIntervalTimeUnit": "HOURS",
+          "intervalPersistencePolicy": "ON_EACH_CHECK_AFTER_INTERVAL_END",
+          "outMsgType": "POST_TELEMETRY_REQUEST",
+          "intervalCheckValue": 1,
+          "intervalCheckTimeUnit": "MINUTES",
+          "statePersistencePolicy": "ON_EACH_CHANGE",
+          "statePersistenceValue": 1,
+          "statePersistenceTimeUnit": "MINUTES",
+          "autoCreateIntervals": false,
+          "periodValue": 5,
+          "periodTimeUnit": "MINUTES",
+          "parentEntitiesQuery": {
+            "type": "group",
+            "entityGroupId": null
+          }
+        },
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 888,
+          "layoutY": 287
+        }
+      },
+      {
+        "type": "org.thingsboard.rule.engine.analytics.incoming.TbSimpleAggMsgNode",
+        "name": "HumMin",
+        "debugSettings": null,
+        "singletonMode": false,
+        "queueName": null,
+        "configurationVersion": 2,
+        "configuration": {
+          "inputValueKey": "Relative humidity",
+          "outputValueKey": "Humidity_Min",
+          "mathFunction": "MIN",
+          "aggIntervalType": "HOUR",
+          "timeZoneId": "Europe/Madrid",
+          "aggIntervalValue": 1,
+          "aggIntervalTimeUnit": "HOURS",
+          "intervalPersistencePolicy": "ON_EACH_CHECK_AFTER_INTERVAL_END",
+          "outMsgType": "POST_TELEMETRY_REQUEST",
+          "intervalCheckValue": 1,
+          "intervalCheckTimeUnit": "MINUTES",
+          "statePersistencePolicy": "ON_EACH_CHANGE",
+          "statePersistenceValue": 1,
+          "statePersistenceTimeUnit": "MINUTES",
+          "autoCreateIntervals": false,
+          "periodValue": 5,
+          "periodTimeUnit": "MINUTES",
+          "parentEntitiesQuery": {
+            "type": "group",
+            "entityGroupId": null
+          }
+        },
+        "additionalInfo": {
+          "description": "",
+          "layoutX": 890,
+          "layoutY": 335
+        }
+      }
+    ],
+    "connections": [
+      {
+        "fromIndex": 2,
+        "toIndex": 0,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 1,
+        "type": "Post attributes"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 3,
+        "type": "RPC Request from Device"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 4,
+        "type": "Other"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 5,
+        "type": "RPC Request to Device"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 10,
+        "type": "Generate Report"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 12,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 13,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 14,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 2,
+        "toIndex": 15,
+        "type": "Post telemetry"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 2,
+        "type": "False"
+      },
+      {
+        "fromIndex": 6,
+        "toIndex": 7,
+        "type": "True"
+      },
+      {
+        "fromIndex": 7,
+        "toIndex": 2,
+        "type": "False"
+      },
+      {
+        "fromIndex": 7,
+        "toIndex": 8,
+        "type": "True"
+      },
+      {
+        "fromIndex": 8,
+        "toIndex": 2,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 9,
+        "toIndex": 6,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 11,
+        "toIndex": 0,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 12,
+        "toIndex": 11,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 13,
+        "toIndex": 11,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 14,
+        "toIndex": 11,
+        "type": "Success"
+      },
+      {
+        "fromIndex": 15,
+        "toIndex": 11,
+        "type": "Success"
+      }
+    ],
+    "ruleChainConnections": null
+  }
+}
