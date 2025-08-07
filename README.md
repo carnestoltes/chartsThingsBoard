@@ -62,11 +62,11 @@ To visualize MoH data, you need a custom bar chart widget in ThingsBoard.
 
 ![A review of charts options](./images/Charts.png)
 
-Diferent chart options for display it.
+_Diferent chart options for display it._
 
 ![Final result](./images/CE_MoH.png)
 
-The final result.
+_The final result._
 
 # Instance of ThingsBoard PE
 
@@ -76,9 +76,9 @@ In this section, we can appreciate how you can make an aggregations for exploit 
 
 ![A visualization of json file](./images/Rule.png)
 
-A visual reference of rule chain implementing aggregation for exploit the raw data.
+_A visual reference of rule chain implementing aggregation for exploit the raw data._
 
 ![Final result](./images/M&M.png)
 
-Another one.
+_Another one._
 
