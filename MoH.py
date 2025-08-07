@@ -5,12 +5,12 @@ import argparse
 import os
 import sys
 
-# --- Enviar datos a ThingsBoard ---
+# --- Send data to ThingsBoard ---
 def enviar_datos(df, telemetry_keys, token, host):
     url = f'{host}/api/v1/{token}/telemetry'
     headers = {'Content-Type': 'application/json'}
 
-    print(f"Se cargaron {len(df)} registros originales del CSV.")
+    print(f"Load {len(df)} registries from CSV.")
 
     for index, row in df.iterrows():
         timestamp_ms = int(row['Timestamp'].timestamp() * 1000) # ThingsBoard work with miliseconds
