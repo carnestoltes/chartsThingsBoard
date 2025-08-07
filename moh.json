@@ -212,7 +212,7 @@
         "configurationVersion": 0,
         "configuration": {
           "scriptLang": "JS",
-          "jsScript": "// Define las claves para la temperatura\nvar maxTemp = msg.Temperature_Max;\nvar minTemp = msg.Temperature_Min;\n\n// Define las claves para la humedad\nvar maxHum = msg.Humidity_Max;\nvar minHum = msg.Humidity_Min;\n\n// Calcula la MoH para la temperatura si los valores existen\nif (maxTemp !== undefined && minTemp !== undefined) {\n    var mohTemp = maxTemp - minTemp;\n    msg.MoH_Temperature = mohTemp;\n}\n\n// Calcula la MoH para la humedad si los valores existen\nif (maxHum !== undefined && minHum !== undefined) {\n    var mohHum = maxHum - minHum;\n    msg.MoH_Humidity = mohHum;\n}\n\nreturn msg;",
+          "jsScript": "// Define the keys for temperature telemetry\nvar maxTemp = msg.Temperature_Max;\nvar minTemp = msg.Temperature_Min;\n\n// Define the keys for humidity telemetry\nvar maxHum = msg.Humidity_Max;\nvar minHum = msg.Humidity_Min;\n\n// Calcula la MoH para la temperatura si los valores existen\nif (maxTemp !== undefined && minTemp !== undefined) {\n    var mohTemp = maxTemp - minTemp;\n    msg.MoH_Temperature = mohTemp;\n}\n\n// Calcula la MoH para la humedad si los valores existen\nif (maxHum !== undefined && minHum !== undefined) {\n    var mohHum = maxHum - minHum;\n    msg.MoH_Humidity = mohHum;\n}\n\nreturn msg;",
           "tbelScript": "return {msg: msg, metadata: metadata, msgType: msgType};"
         },
         "additionalInfo": {
