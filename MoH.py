@@ -1,6 +1,6 @@
 """
 File Name:           MoH.py
-Description:         Script para la subida de datos a la plataforma ThingsBoards y cálculo opcional de la MoH.
+Description:         Script for upload de raw data to ThingsBoards platform and optionally computes the MoH metric.
 Author:              Rubén Rodríguez Navarro
 Creation Date:       2025-07-28
 Last Modified Date:  2025-08-10
