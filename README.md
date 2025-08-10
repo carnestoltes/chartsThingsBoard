@@ -104,7 +104,7 @@ To run the script, use the terminal, execute and go to the chat for start.
 
 * **To set your token chat ID:**
   
-  Edit the script and change in the main section this line with your token:
+  Edit the script and change in the **main** section this line with your token:
   
     bot_token = ""
 
@@ -113,12 +113,12 @@ To run the script, use the terminal, execute and go to the chat for start.
     python3 MoHBot.py 
     ```
 
-* **To start the process into chat:**
+* **To start the process into the chat:**
     ```bash
     /start
     ```
 
-* **To cancel the process:**
+* **To cancel the process into the chat:**
     ```bash
     /cancel
     ```
