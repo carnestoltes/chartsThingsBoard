@@ -242,7 +242,7 @@ async def cancel(update: Update, context: CallbackContext) -> int:
 
 def main():
     """Start the bot."""
-    bot_token = "7808597269:AAHJ1Xec87FZUZlNJoHJyubN_Z27BIJHaio" 
+    bot_token = "" 
     
     application = Application.builder().token(bot_token).build()
 
