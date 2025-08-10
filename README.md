@@ -56,7 +56,7 @@ To run the script, use the terminal and provide the necessary arguments.
 
 * **To upload telemetry and calculate MoH:**
     ```bash
-    python3 MoH.py --csv <path/to/your/file.csv> --keys "Relative humidity" "Temperature" --token <your-token> --moh
+    python3 MoH.py --csv <path/to/your/file.csv> --keys "Relative humidity" "Temperature" --token <your-token> --time-filter "all" --moh
     ```
 
 ### ThingsBoard Widget Configuration
