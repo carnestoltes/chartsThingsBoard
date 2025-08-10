@@ -130,7 +130,7 @@ If you complete the process, you should see a similar image like this:
 
 In this section, we can appreciate how you can make an aggregations for exploit your raw data using only a rule chain.
 
-If you only wants a rule chain .json for import, you should follow this steps:
+If you only **wants** a rule chain **.json** for import, you should follow this steps:
 
 * **Go to the directory:**
     ```bash
