@@ -68,6 +68,13 @@ _Diferents charts options for display it._
 
 _The final result._
 
+# Automation tool using chatboot from Telegram
+
+You should give in the part of main the token ID from chatbot bacause without token don't work the tool
+
+'''
+bot_token = ""
+'''
 # Instance of ThingsBoard PE
 
 In this section, we can appreciate how you can make an aggregations for exploit your raw data using only a rule chain.
