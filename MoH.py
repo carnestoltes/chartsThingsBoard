@@ -1,3 +1,15 @@
+"""
+File Name:           MoH.py
+Description:         Script para la subida de datos a la plataforma ThingsBoards y cálculo opcional de la MoH.
+Author:              Rubén Rodríguez Navarro
+Creation Date:       2025-07-28
+Last Modified Date:  2025-08-10
+Version:             1.0.0
+License:             Apache 2.0
+Notes:
+    - It's mandatory use a token ID for reference the node which will have the data.
+    
+"""
 import pandas as pd
 import requests
 import time
@@ -6,7 +18,7 @@ import os
 import sys
 
 # --- Send data to ThingsBoard ---
-def enviar_datos(df, telemetry_keys, token, host):
+def send_data(df, telemetry_keys, token, host):
     url = f'{host}/api/v1/{token}/telemetry'
     headers = {'Content-Type': 'application/json'}
 
@@ -39,18 +51,18 @@ def enviar_datos(df, telemetry_keys, token, host):
     print("Process success.")
 
 # --- Function for send the oscilation to ThingsBoard ---
-def enviar_oscilacion(df_oscilacion, token, host):
+def send_oscillation(df_oscillation, token, host):
     url = f'{host}/api/v1/{token}/telemetry'
     headers = {'Content-Type': 'application/json'}
 
-    print(f"Load {len(df_oscilacion)} records to send.")
+    print(f"Load {len(df_oscillation)} records to send.")
 
-    for index, row in df_oscilacion.iterrows():
-        # The index of df_oscilacion is the timestamp 
+    for index, row in df_oscillation.iterrows():
+        # The index of df_oscillation is the timestamp 
         timestamp_ms = int(index.timestamp() * 1000) 
         
-        # Each column df_oscilacion its a key
-        values = {col: row[col] for col in df_oscilacion.columns if pd.notnull(row[col])}
+        # Each column df_oscillation its a key
+        values = {col: row[col] for col in df_oscillation.columns if pd.notnull(row[col])}
         
         payload = {
             "ts": timestamp_ms,
@@ -71,7 +83,7 @@ def enviar_oscilacion(df_oscilacion, token, host):
     print("Send oscillation succed.")
 
 # --- Load data to CSV ---
-def cargar_csv(csv_path):
+def load_csv(csv_path):
     try:
         if not os.path.exists(csv_path):
             raise FileNotFoundError(f"Error: CSV file don't find it {csv_path}")
@@ -90,34 +102,34 @@ def cargar_csv(csv_path):
         print(f"Cannot read the CSV: {e}")
         sys.exit(1)
 
-def validar_claves(df, keys):
-   claves_faltantes = [key for key in keys if key not in df.columns]
-   if claves_faltantes:
+def keys_validation(df, keys):
+   missing_keys = [key for key in keys if key not in df.columns]
+   if missing_keys:
      raise KeyError(f"Error: Missing keys into CSV: {', '.join(claves_faltantes)}")
 
 # --- Function for calculate the MoH ---
-def calcular_oscilacion_horaria(df, telemetry_keys):
+def MoH_calculation(df, telemetry_keys):
     print("Processing ...")
-    oscilacion_df = pd.DataFrame()
+    oscillation_df = pd.DataFrame()
     for key in telemetry_keys:
         if key in df.columns:
             # Obteining a min, max with an interval of one hour
-            df[key] = pd.to_numeric(df[key], errors='coerce') # Convertir a numérico, forzando NaN si hay errores
+            df[key] = pd.to_numeric(df[key], errors='coerce') # Compute a number frocing NaN data
             hourly_min = df[key].resample('H').min()
             hourly_max = df[key].resample('H').max()
             
             # Diference between max and min
-            oscilacion = hourly_max - hourly_min
+            oscillation = hourly_max - hourly_min
             
             # Assing a descriptive name for variable
-            oscilacion_df[f'{key}_MoH'] = oscilacion 
+            oscillation_df[f'{key}_MoH'] = oscillation 
         else:
-            print(f"Advertencia: La clave '{key}' no se encontró en el DataFrame para calcular la oscilación.")
+            print(f"Warning: The key '{key}' not found into DataFrame.")
     
     # Delete a NaN columns 
-    oscilacion_df = oscilacion_df.dropna()
+    oscillation_df = oscillation_df.dropna()
     print("Finish the compute of MoH.")
-    return oscilacion_df
+    return oscillation_df
 
 # --- Main ---
 def main():
@@ -137,7 +149,7 @@ def main():
     args = parser.parse_args()
 
     try:
-        df = cargar_csv(args.csv)
+        df = load_csv(args.csv)
 
         if args.list_columns:
             print("Parameters into CSV:")
@@ -156,16 +168,16 @@ def main():
             sys.exit(1)
 
         # Rebuild for use Timestamp like column and not like an index
-        validar_claves(df.reset_index(), args.keys)
+        keys_validation(df.reset_index(), args.keys)
 
         # Send original data
-        enviar_datos(df.reset_index(), args.keys, args.token, args.host)
+        send_data(df.reset_index(), args.keys, args.token, args.host)
 
         # Structure for send MoH data
         if args.moh:
-            moh_df = calcular_oscilacion_horaria(df, args.keys) # A DataFrame index
+            moh_df = MoH_calculation(df, args.keys) # A DataFrame index
             if not moh_df.empty:
-                enviar_oscilacion(moh_df, args.token, args.host)
+                send_oscillation(moh_df, args.token, args.host)
             else:
                 print("MOH data empty.")
 
