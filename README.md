@@ -11,6 +11,7 @@ In the other hand contains a **rule chain model** for make **aggregations** with
 * Loads telemetry data from a CSV file for multiple sensors.
 * Automatically calculates Hourly Maximum Oscillation (MoH) for each hour.
 * Supports multiple telemetry keys.
+* Allow the posibility of choose a subset of data divided into days, months or years. 
 * Integrates with ThingsBoard Community Edition (CE) without the need for special rule nodes.
 
 
@@ -70,7 +71,7 @@ _The final result._
 
 ## Automation tool using chatbot from Telegram
 
-You should give in the part of main the token ID from chatbot bacause without token don't works the tool.
+You should give in the part of **main** the **token ID** from chatbot because without token don't works the tool.
 
 ```bash
     bot_token = ""
