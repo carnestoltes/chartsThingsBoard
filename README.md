@@ -48,6 +48,11 @@ To run the script, use the terminal and provide the necessary arguments.
     ```bash
     python3 MoH.py --csv <path/to/your/file.csv> --list-columns
     ```
+    
+* **To upload subset of data from CSV:**
+    ```bash
+    python3 MoH.py --csv <path/to/your/file.csv> --keys "Relative humidity" "Temperature" --token <your-token> --time-filter "7D"
+    ```
 
 * **To upload telemetry and calculate MoH:**
     ```bash
