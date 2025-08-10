@@ -1,3 +1,17 @@
+"""
+File Name:           MoHBot.py
+Description:         Script for upload the raw data to ThingsBoards platform and optionally computes the MoH metric using chatbot from Telegram.
+Author:              Rubén Rodríguez Navarro
+Creation Date:       2025-08-10
+Last Modified Date:  2025-08-10
+Version:             1.2.0
+License:             Apache 2.0
+Notes:
+    - It's mandatory use a token ID for reference the node which will have the data.
+    - It's mandatory specify the token ID from chatbot.
+    
+"""
+
 import logging
 import subprocess
 import os
