@@ -1,6 +1,6 @@
 # Tool for upload and operate with telemetry in ThingsBoard
 
-This repository contains, in one hand a **Python script** for upload telemetry data from **CSV file** to platform including the calculation of **Hourly Maximum Oscillation (MoH)** for visualization.
+This repository contains, in one hand a **Python script** for upload telemetry data from **CSV file** to platform including the calculation of **Hourly Maximum Oscillation (MoH)** for visualization. Additionally, a **chat bot-based tool** is offered to make it more **user-friendly** and **comfortable**.
 
 In the other hand contains a **rule chain model** for make **aggregations** with an example of calculation of Hourly Maximum Oscillation (MoH).
 
@@ -69,7 +69,7 @@ _Diferents charts options for display it._
 
 _The final result._
 
-## Automation tool using chatbot from Telegram
+## Chat-Bot based tool from Telegram
 
 You should give in the part of **main** the **token ID** from chatbot because without token don't works the tool.
 
