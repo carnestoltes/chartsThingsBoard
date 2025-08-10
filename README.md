@@ -129,6 +129,15 @@ If you complete the process, you should see a similar image like this:
 
 In this section, we can appreciate how you can make an aggregations for exploit your raw data using only a rule chain.
 
+If you only wants a rule chain .json for import, you should follow this steps:
+
+* **Go to the directory:**
+    ```bash
+    git clone https://github.com/carnestoltes/chartsThingsBoard.git
+    cd chartsThingsBoard/PE
+    ```
+Just download and that it's all.
+
 ### Display of rule chain 
 
 ![A visualization of json file](./images/Rule.png)
