@@ -26,4 +26,9 @@ The `MoH.py` script can be executed from the terminal with several arguments:
 -   `--moh`: Activates the calculation and sending of the MoH metric.
 -   `--time-filter <filter>`: Filters data by a specific time period (e.g., `7D`, `1M`).
 
----
+### Dependencies
+
+-   `pandas`
+-   `os`
+-   `os`
+-   `os`
