@@ -2,7 +2,7 @@
 
 ## Description
 
-The `MoH` module is a script for uploading telemetry data to the ThingsBoard platform. Optionally, it can calculate and send the **MoH (Maximum minus Minimum)** metric from the CSV data.
+The `MoH` module is a script for uploading telemetry data to the ThingsBoard platform. Optionally, it can calculate and send the **Hourly Maximum Oscillation (MoH)** metric from the CSV data.
 
 ### Key Functions
 
@@ -26,4 +26,8 @@ The `MoH.py` script can be executed from the terminal with several arguments:
 -   `--moh`: Activates the calculation and sending of the MoH metric.
 -   `--time-filter <filter>`: Filters data by a specific time period (e.g., `7D`, `1M`).
 
----
+### Dependencies
+
+- ´pandas´
+- ´requests´
+- ´argsparse´
