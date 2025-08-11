@@ -87,7 +87,7 @@ You should give in the part of **main** the **token ID** from chatbot because wi
    ```
 ### Documentation
 
-- [API from MoHBot.py](CE/MoHBot.md)
+- [API for MoHBot.py](CE/MoHBot.md)
 
 ### Requirements
 
