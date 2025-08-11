@@ -29,6 +29,8 @@ The `MoH.py` script can be executed from the terminal with several arguments:
 ### Dependencies
 
 -   `pandas`
+-   `requests`
+-   `time`
+-   `argparse`
 -   `os`
--   `os`
--   `os`
+-   `sys`
