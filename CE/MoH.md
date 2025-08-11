@@ -28,6 +28,6 @@ The `MoH.py` script can be executed from the terminal with several arguments:
 
 ### Dependencies
 
-- ´pandas´
-- ´requests´
-- ´argsparse´
+- `pandas`
+- `requests`
+- `argparse`
