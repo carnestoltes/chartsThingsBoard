@@ -6,6 +6,10 @@ In the other hand contains a **rule chain model** for make **aggregations** with
 
 # Instance of ThingsBoard CE
 
+### Documentation
+
+- [API for MoH](CE/MoH.md)
+
 ### Features
 
 * Loads telemetry data from a CSV file for multiple sensors.
@@ -81,6 +85,9 @@ You should give in the part of **main** the **token ID** from chatbot because wi
 ```bash
     bot_token = ""
    ```
+### Documentation
+
+- [API from MoHBot.py](CE/MoHBot.md)
 
 ### Requirements
 
