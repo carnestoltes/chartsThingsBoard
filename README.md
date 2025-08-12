@@ -8,7 +8,7 @@ In the other hand contains a **rule chain model** for make **aggregations** with
 
 ### Documentation
 
-- [API for MoH](CE/MoH.md)
+- [API for MoH](docs/MoH.md)
 
 ### Features
 
@@ -87,7 +87,7 @@ You should give in the part of **main** the **token ID** from chatbot because wi
    ```
 ### Documentation
 
-- [API for MoHBot](CE/MoHBot.md)
+- [API for MoHBot](docs/MoHBot.md)
 
 ### Requirements
 
