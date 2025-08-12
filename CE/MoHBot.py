@@ -115,7 +115,7 @@ async def get_keys(update: Update, context: CallbackContext) -> int:
     
     await update.message.reply_text(
         "Keys received. "
-        "The default ThingsBoard host is `http://localhost:8080`. "
+        "The default ThingsBoard host is 'http://localhost:8080'. "
         "Would you like to use a different host? If so, please send me the URL. "
         "Otherwise, type 'default' to proceed with the default host."
     )
