@@ -226,7 +226,7 @@ async def run_moh_script(update: Update, context: CallbackContext) -> int:
                     await update.message.reply_text(stdout_line.strip())
 
             if stderr_line:
-                await update.message.reply_text(f"⚠️ **Error:** {stderr_line.strip()}")
+                await update.message.reply_text(f" **Error:** {stderr_line.strip()}")
             
             await asyncio.sleep(0.1)
 
@@ -234,13 +234,13 @@ async def run_moh_script(update: Update, context: CallbackContext) -> int:
             await context.bot.edit_message_text(
                 chat_id=update.effective_chat.id,
                 message_id=progress_message_id,
-                text=f"✅ Upload completed successfully!"
+                text=f"Upload completed successfully!"
             )
         else:
-            await update.message.reply_text(f"❌ Script finished with an error. Check the messages above for details.")
+            await update.message.reply_text(f" Script finished with an error. Check the messages above for details.")
     
     except FileNotFoundError:
-        await update.message.reply_text("The `MoH.py` script was not found. Please ensure it is in the same directory as the bot.")
+        await update.message.reply_text("The 'MoH.py' script was not found. Please ensure it is in the same directory as the bot.")
     finally:
         if os.path.exists(csv_path):
             os.remove(csv_path)
