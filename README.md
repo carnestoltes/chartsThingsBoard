@@ -151,13 +151,19 @@ If you only **wants** a rule chain **.json** for import, you should follow this 
     ```
 Just download and that it's all.
 
-### Display of rule chain 
+### Display of  MoH rule chain 
 
-![A visualization of json file](./images/Rule.png)
+![A visualization of json file](./images/MoHRule.jpg)
 
 _A visual reference of rule chain implementing aggregation for exploit the raw data._
 
 ![Final result](./images/M&M.png)
 
 _Another one._
+
+### Display of dewpoint rule chain 
+
+![A visualization of json file](./images/dewRule.jpg)
+
+_A visual reference of rule chain implementing script node for exploit the raw data._
 
