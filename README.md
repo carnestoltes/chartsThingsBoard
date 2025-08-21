@@ -142,6 +142,7 @@ If you complete the process, you should see a similar image like this:
 
 In this section, we can appreciate how you can make an aggregations for exploit your raw data using only a rule chain.
 
+**Note:** Be sure to modify the names of your telemetry variables within the nodes, as well as the derived data, if you wish to change the name of the parameterization.
 If you only **wants** a rule chain **.json** for import, you should follow this steps:
 
 * **Go to the directory:**
