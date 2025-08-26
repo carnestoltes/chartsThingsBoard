@@ -168,3 +168,13 @@ _Another one._
 
 _A visual reference of rule chain implementing script node for exploit the raw data._
 
+### Display of absolute humidity rule chain 
+
+![A visualization of json file](./images/ruleHA.jpg)
+
+_A visual reference of rule chain implementing script node for exploit the raw data._
+
+![Final result](./images/hum_abs.jpg)
+
+_Another one._
+
