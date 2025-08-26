@@ -174,7 +174,7 @@ _A visual reference of rule chain implementing script node for exploit the raw d
 
 _A visual reference of rule chain implementing script node for exploit the raw data._
 
-![Final result](./images/hum_abs.jpg)
+![Final result](./images/Abs_hum.png)
 
 _Another one._
 
