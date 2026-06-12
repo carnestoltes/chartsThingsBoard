@@ -1,180 +1,104 @@
-# Tool for upload and operate with telemetry in ThingsBoard
+# ThingsBoard Telemetry Toolkit
 
-This repository contains, in one hand a **Python script** for upload telemetry data from **CSV file** to platform including the calculation of **Hourly Maximum Oscillation (MoH)** for visualization. Additionally, a **chat bot-based tool** is offered to make it more **user-friendly** and **comfortable**.
+[![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)]()
+[![Platform](https://img.shields.io/badge/Platform-ThingsBoard%20CE%20%2F%20PE-429DF0)]()
+[![License](https://img.shields.io/badge/License-Apache--2.0-green)](LICENSE)
 
-In the other hand contains a **rule chain model** for make **aggregations** with an example of calculation of Hourly Maximum Oscillation (MoH).
+A set of Python tools to ingest, process, and visualise sensor telemetry in **ThingsBoard** — an open-source IoT platform. Designed for environments where raw sensor data (CSV exports from dataloggers or similar) needs to be pushed to a platform, processed with custom aggregations, and displayed in dashboards.
 
-# Instance of ThingsBoard CE
+Built during real R&D work with industrial environmental sensors.
 
-### Documentation
+---
 
-- [API for MoH](docs/MoH.md)
+## What problem this solves
 
-### Features
+Industrial dataloggers and measurement devices often export raw data as CSV files. Getting that data into an IoT platform for visualisation and alerting typically requires manual work. This toolkit automates the ingestion pipeline and adds calculated metrics (Hourly Maximum Oscillation) on top, without requiring ThingsBoard PE rule nodes for the CE edition.
 
-* Loads telemetry data from a CSV file for multiple sensors.
-* Automatically calculates Hourly Maximum Oscillation (MoH) for each hour.
-* Supports multiple telemetry keys.
-* Allow the posibility of choose a subset of data divided into days, months or years. 
-* Integrates with ThingsBoard Community Edition (CE) without the need for special rule nodes.
+```
+CSV export (datalogger/sensor)
+        │
+        ▼
+  MoH.py / MoHBot.py          ← ingestion + calculation
+        │
+        ▼
+  ThingsBoard API              ← telemetry stored per device
+        │
+        ▼
+  Custom bar chart widget      ← visualisation dashboard
+```
 
+---
 
-### Requirements
+## Contents
 
-* **Python 3.x**
-* **A ThingsBoard instance (CE or PE)**
-* **Access to the ThingsBoard API with a device token**
+| Component | Description |
+|---|---|
+| `CE/MoH.py` | CLI script — ingests CSV, calculates MoH, pushes to ThingsBoard CE |
+| `CE/MoHBot.py` | Telegram chatbot interface for the same pipeline (user-friendly) |
+| `PE/` | Rule chain JSON for ThingsBoard PE — aggregations without custom code |
 
+---
 
-### Installation
+## CE edition — CLI tool
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/carnestoltes/chartsThingsBoard.git
-    cd chartsThingsBoard/CE
-    ```
-
-2.  **Install dependencies:**
-    ```bash
-    pip install pandas requests argparse
-    ```
-
-### Usage
-
-To run the script, use the terminal and provide the necessary arguments.
-
-* **To check the options:**
-    ```bash
-    python3 MoH.py -h
-    ```
-
-* **To check the columns in your CSV:**
-    ```bash
-    python3 MoH.py --csv <path/to/your/file.csv> --list-columns
-    ```
-    
-* **To upload subset of data from CSV:**
-    ```bash
-    python3 MoH.py --csv <path/to/your/file.csv> --keys "Relative humidity" "Temperature" --token <your-token> --time-filter "7D"
-    ```
-
-* **To upload telemetry and calculate MoH:**
-    ```bash
-    python3 MoH.py --csv <path/to/your/file.csv> --keys "Relative humidity" "Temperature" --token <your-token> --time-filter "all" --moh
-    ```
-
-### ThingsBoard Widget Configuration
-
-To visualize MoH data, you need a custom bar chart widget in ThingsBoard. 
-
-1.  Create a new **"Time-Series Bar Chart"** widget.
-2.  On the **Data Keys** tab, configure your telemetry key (for example, 'Temperature') or you can choose the calculated MoH for display.
-
-![A review of charts options](./images/Charts.png)
-
-_Diferents charts options for display it._
-
-![Final result](./images/CE_MoH.png)
-
-_The final result._
-
-## Chat-Bot based tool from Telegram
-
-You should give in the part of **main** the **token ID** from chatbot because without token don't works the tool.
+### Install
 
 ```bash
-    bot_token = ""
-   ```
-### Documentation
-
-- [API for MoHBot](docs/MoHBot.md)
-
-### Requirements
-
-* **Python 3.x**
-* **A ThingsBoard instance (CE or PE)**
-* **Access to the ThingsBoard API with a device token**
-* **Access to the Telegram chatbot API with a chat token**
-
-
-### Installation
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/carnestoltes/chartsThingsBoard.git
-    cd chartsThingsBoard/CE
-    ```
-
-2.  **Install dependencies:**
-    ```bash
-    pip install pandas requests argparse python-telegram-bot
-    ```
+git clone https://github.com/carnestoltes/chartsThingsBoard.git
+cd chartsThingsBoard/CE
+pip install pandas requests argparse
+```
 
 ### Usage
 
-To run the script, use the terminal, execute and go to the chat for start.
+```bash
+# List available columns in your CSV
+python3 MoH.py --csv data.csv --list-columns
 
-* **To set your token chat ID:**
-  
-  Edit the script and change in the **main** section this line with your token:
-  
-    bot_token = ""
+# Upload a subset of data (last 7 days)
+python3 MoH.py --csv data.csv --keys "Temperature" "Humidity" --token <device-token> --time-filter "7D"
 
-* **To run the chatbot:**
-    ```bash
-    python3 MoHBot.py 
-    ```
+# Upload and calculate Hourly Maximum Oscillation
+python3 MoH.py --csv data.csv --keys "Temperature" --token <device-token> --time-filter "all" --moh
+```
 
-* **To start the process into the chat:**
-    ```bash
-    /start
-    ```
+---
 
-* **To cancel the process into the chat:**
-    ```bash
-    /cancel
-    ```
-If you complete the process, you should see a similar image like this:
+## CE edition — Telegram bot
 
-![A visualization of json file](./images/chatbot.png)
+For non-technical operators who need to trigger ingestion without a terminal:
 
-# Instance of ThingsBoard PE
+```bash
+pip install pandas requests argparse python-telegram-bot
+# Set your bot token in MoHBot.py, then:
+python3 MoHBot.py
+```
 
-In this section, we can appreciate how you can make an aggregations for exploit your raw data using only a rule chain.
+In the chat: `/start` to begin, `/cancel` to abort.
 
-**Note:** Be sure to modify the names of your telemetry variables within the nodes, as well as the derived data, if you wish to change the name of the parameterization.
-If you only **wants** a rule chain **.json** for import, you should follow this steps:
+---
 
-* **Go to the directory:**
-    ```bash
-    git clone https://github.com/carnestoltes/chartsThingsBoard.git
-    cd chartsThingsBoard/PE
-    ```
-Just download and that it's all.
+## PE edition — rule chain
 
-### Display of  MoH rule chain 
+Import the `.json` files from `PE/` directly into ThingsBoard PE's rule chain editor. Includes aggregation chains for:
 
-![A visualization of json file](./images/MoHRule.jpg)
+- Hourly Maximum Oscillation (MoH)
+- Dewpoint calculation
+- Absolute humidity
 
-_A visual reference of rule chain implementing aggregation for exploit the raw data._
+> **Note:** Update telemetry variable names inside each node to match your device's keys before importing.
 
-![Final result](./images/M&M.png)
+---
 
-_Another one._
+## ThingsBoard widget setup
 
-### Display of dewpoint rule chain 
+To visualise MoH data, create a **Time-Series Bar Chart** widget in ThingsBoard and set the data key to your calculated metric (e.g. `Temperature_MoH`). Screenshots of the expected result are in `images/`.
 
-![A visualization of json file](./images/dewRule.jpg)
+---
 
-_A visual reference of rule chain implementing script node for exploit the raw data._
+## Topics
 
-### Display of absolute humidity rule chain 
-
-![A visualization of json file](./images/ruleHA.jpg)
-
-_A visual reference of rule chain implementing script node for exploit the raw data._
-
-![Final result](./images/Abs_hum.png)
+`iot` `thingsboard` `mqtt` `telemetry` `python` `data-acquisition` `industrial-iot` `edge-computing` `raspberry-pi` `environmental-monitoring`
 
 _Another one._
 
