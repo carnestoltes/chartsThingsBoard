@@ -100,5 +100,4 @@ To visualise MoH data, create a **Time-Series Bar Chart** widget in ThingsBoard 
 
 `iot` `thingsboard` `mqtt` `telemetry` `python` `data-acquisition` `industrial-iot` `edge-computing` `raspberry-pi` `environmental-monitoring`
 
-_Another one._
 
